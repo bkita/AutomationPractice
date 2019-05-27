@@ -28,11 +28,15 @@ public class Header {
         signInButton().click();
     }
 
+    public void clickOnSignInButtonInLoginPage() {
+        signInButtonInLoginPage().click();
+    }
+
     public void clickOnCreateAnAccoundButton() {
         createAnAccountButton().click();
     }
 
-    public void isCreateAnAccountAlertvisible() {
+    public void isCreateAnAccountAlertVisible() {
         isCreateAnAccountAlertOn().isDisplayed();
     }
 
@@ -45,18 +49,22 @@ public class Header {
     }
 
     private WebElement isContactUsAlertOn() {
-        return driver.findElement(By.className("alert alert-danger"));
+        return driver.findElement(By.className("alert"));
     }
 
     private WebElement signInButton() {
         return driver.findElement(By.className("login"));
     }
 
+    private WebElement signInButtonInLoginPage() {
+        return driver.findElement(By.className("icon-lock"));
+    }
+
     private WebElement createAnAccountButton() {
-        return driver.findElement(By.className("icon-user"));
+        return driver.findElement(By.className("btn"));
     }
 
     private WebElement isCreateAnAccountAlertOn() {
-        return driver.findElement(By.id("create_account_error"));
+        return driver.findElement(By.className("alert"));
     }
 }
