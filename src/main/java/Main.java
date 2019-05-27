@@ -25,8 +25,7 @@ public class Main {
     public static void beforeAll() {
 
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        header = new Header(driver);
+
         title = new Title(driver);
         wait = new WebDriverWait(driver, 10);
     }
@@ -63,27 +62,4 @@ public class Main {
     public void checkPageTitleTest() {
         title.isPageTitleVisible();
     }
-//    @Test
-//    public void checkTitle() {
-//        Assertions.assertThat(driver.getTitle()).isEqualTo("My Store");
-//    }
-//
-//    @Test
-//    public void canNotSendContactUsMessageWithEmptyEmail() {
-//        driver.findElement(By.id("contact-link")).click();
-//        driver.findElement(By.id("submitMessage")).click();
-//
-//        Assertions.assertThat(driver.findElement(By.cssSelector("div.alert")).isDisplayed()).isTrue();
-//    }
-//
-//    @Test
-//    public void canNotCreateAnAccountWithEmptyEmail() {
-//        driver.findElement(By.cssSelector("a.login")).click();
-//        driver.findElement(By.id("SubmitCreate")).click();
-//
-//        new WebDriverWait(driver, 5).
-//                until(ExpectedConditions.visibilityOf(driver.findElement(By.id("create_account_error"))));
-//
-//        Assertions.assertThat(driver.findElement(By.id("create_account_error")).isDisplayed()).isTrue();
-//    }
 }
