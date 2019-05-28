@@ -1,30 +1,26 @@
 package page;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
-public class SignIn {
-
-    private WebDriver driver;
+public class SignIn extends PageObject{
 
     public SignIn(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
+    @FindBy(className = "btn")
+    private WebElement createAnAccountButton;
+
+    @FindBy(className = "alert")
+    private WebElement alert;
+
     public void clickOnCreateAnAccoundButton() {
-        createAnAccountButton().click();
+        createAnAccountButton.click();
     }
 
     public void isCreateAnAccountAlertVisible() {
-        isCreateAnAccountAlertOn().isDisplayed();
-    }
-
-    private WebElement createAnAccountButton() {
-        return driver.findElement(By.className("btn"));
-    }
-
-    private WebElement isCreateAnAccountAlertOn() {
-        return driver.findElement(By.className("alert"));
+        alert.isDisplayed();
     }
 }

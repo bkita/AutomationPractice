@@ -28,6 +28,7 @@ public class Main {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
 
+        header = new Header(driver);
         signIn = new SignIn(driver);
         contactUs = new ContactUs(driver);
         title = new Title(driver);
@@ -45,25 +46,26 @@ public class Main {
         driver.quit();
     }
 
-//    @Test
-//    public void checkSignInAlertTest() {
-//        header.clickOnSignInButton();
-//        signIn.clickOnCreateAnAccoundButton();
-//        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("alert"))));
-//        signIn.isCreateAnAccountAlertVisible();
-//    }
+    @Test
+    public void checkSignInAlertTest() {
+        header.clickOnSignInButton();
+        signIn.clickOnCreateAnAccoundButton();
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("alert"))));
+        signIn.isCreateAnAccountAlertVisible();
+    }
 
     @Test
     public void checkContactUsAlertTest() {
-        header.clickOnContactUsButton();
 
+        header.clickOnContactUsButton();
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("submitMessage"))));
         contactUs.clickOnSendButton();
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("alert"))));
         contactUs.isContactUsAlertVisible();
     }
 
-//    @Test
-//    public void checkPageTitleTest() {
-//        title.isPageTitleVisible();
-//    }
+    @Test
+    public void checkPageTitleTest() {
+        title.isPageTitleVisible();
+    }
 }
