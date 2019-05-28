@@ -1,13 +1,12 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.interactions.Actions;
 import page.ContactUs;
 import page.Header;
 import page.SignIn;
@@ -20,6 +19,7 @@ public class Main {
     public static Title title;
     public static SignIn signIn;
     public static ContactUs contactUs;
+    public static Actions action;
 
     @BeforeAll
     public static void beforeAll() {
@@ -31,6 +31,7 @@ public class Main {
         signIn = new SignIn(driver);
         contactUs = new ContactUs(driver);
         title = new Title(driver);
+        action = new Actions(driver);
     }
 
     @BeforeEach
@@ -45,18 +46,43 @@ public class Main {
     }
 
     @Test
-    public void checkSignInAlertTest() {
+    public void checkSignInAlertDangerTest() {
         header.clickOnSignInButton();
         signIn.clickOnCreateAnAccoundButton();
-        signIn.isCreateAnAccountAlertVisible();
+
+        Assertions.assertThat(signIn.isCreateAnAccountAlertDangerVisible()).isTrue();
     }
 
     @Test
-    public void checkContactUsAlertTest() {
-
+    public void checkContactUsAlertDangerTest() {
         header.clickOnContactUsButton();
         contactUs.clickOnSendButton();
-        contactUs.isContactUsAlertVisible();
+
+        Assertions.assertThat(contactUs.isContactUsAlertDangerVisible()).isTrue();
+    }
+
+    @Test
+    public void sendMessageTest() {
+
+        header.clickOnContactUsButton();
+        contactUs.clickOnDropdown()
+                .selectFromDropdown()
+                .sendKeysToEmail()
+                .sendKeysToOrder()
+                .sendKeysToMessage()
+                .clickOnSendButton();
+
+        Assertions.assertThat(contactUs.isContactUsAlertSuccessVisible()).isTrue();
+    }
+
+    @Test
+    public void signInTest() {
+        header.clickOnSignInButton();
+        signIn.sendKeysToEmail()
+                .sendKeysToPassword()
+                .clickOnSignInButton();
+
+        Assertions.assertThat(signIn.isSignInAlertDangerVisible()).isTrue();
     }
 
     @Test

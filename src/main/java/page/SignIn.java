@@ -1,6 +1,5 @@
 package page;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,18 +11,50 @@ public class SignIn extends PageObject{
         super(driver);
     }
 
-    @FindBy(className = "btn")
+    @FindBy(id = "SubmitCreate")
     private WebElement createAnAccountButton;
 
-    @FindBy(className = "alert")
-    private WebElement alert;
+    @FindBy(id = "SubmitLogin")
+    private WebElement signInButton;
 
-    public void clickOnCreateAnAccoundButton() {
+    @FindBy(className = "alert-danger")
+    private WebElement alertDanger;
+
+    @FindBy(id = "email")
+    private WebElement email;
+
+    @FindBy(id = "passwd")
+    private WebElement password;
+
+    public SignIn clickOnCreateAnAccoundButton() {
         createAnAccountButton.click();
+        return this;
     }
 
-    public void isCreateAnAccountAlertVisible() {
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("alert"))));
-        alert.isDisplayed();
+    public boolean isCreateAnAccountAlertDangerVisible() {
+        wait.until(ExpectedConditions.visibilityOf(alertDanger));
+        return alertDanger.isDisplayed();
+    }
+
+    public SignIn sendKeysToEmail() {
+        email.click();
+        email.sendKeys("bkita@siabadaba.com");
+        return this;
+    }
+
+    public SignIn sendKeysToPassword() {
+        password.click();
+        password.sendKeys("password");
+        return this;
+    }
+
+    public SignIn clickOnSignInButton() {
+        signInButton.click();
+        return this;
+    }
+
+    public boolean isSignInAlertDangerVisible() {
+        wait.until(ExpectedConditions.visibilityOf(alertDanger));
+        return alertDanger.isDisplayed();
     }
 }
