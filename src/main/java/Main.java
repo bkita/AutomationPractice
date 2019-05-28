@@ -1,5 +1,4 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,10 +8,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import page.ContactUs;
 import page.Header;
+import page.SignIn;
 import page.Title;
-
-import java.util.concurrent.locks.Condition;
 
 public class Main {
 
@@ -20,12 +19,17 @@ public class Main {
     public static Header header;
     public static Title title;
     public static WebDriverWait wait;
+    public static SignIn signIn;
+    public static ContactUs contactUs;
 
     @BeforeAll
     public static void beforeAll() {
 
         WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
 
+        signIn = new SignIn(driver);
+        contactUs = new ContactUs(driver);
         title = new Title(driver);
         wait = new WebDriverWait(driver, 10);
     }
@@ -41,25 +45,25 @@ public class Main {
         driver.quit();
     }
 
-    @Test
-    public void checkSignInAlertTest(){
-        header.clickOnSignInButton();
-        header.clickOnSignInButtonInLoginPage();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("alert"))));
-        header.isContactUsAlertVisible();
-    }
+//    @Test
+//    public void checkSignInAlertTest() {
+//        header.clickOnSignInButton();
+//        signIn.clickOnCreateAnAccoundButton();
+//        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("alert"))));
+//        signIn.isCreateAnAccountAlertVisible();
+//    }
 
     @Test
     public void checkContactUsAlertTest() {
         header.clickOnContactUsButton();
 
-        header.clickOnCreateAnAccoundButton();
+        contactUs.clickOnSendButton();
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("alert"))));
-        header.isCreateAnAccountAlertVisible();
+        contactUs.isContactUsAlertVisible();
     }
 
-    @Test
-    public void checkPageTitleTest() {
-        title.isPageTitleVisible();
-    }
+//    @Test
+//    public void checkPageTitleTest() {
+//        title.isPageTitleVisible();
+//    }
 }
