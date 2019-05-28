@@ -18,7 +18,6 @@ public class Main {
     public static WebDriver driver;
     public static Header header;
     public static Title title;
-    public static WebDriverWait wait;
     public static SignIn signIn;
     public static ContactUs contactUs;
 
@@ -32,7 +31,6 @@ public class Main {
         signIn = new SignIn(driver);
         contactUs = new ContactUs(driver);
         title = new Title(driver);
-        wait = new WebDriverWait(driver, 10);
     }
 
     @BeforeEach
@@ -50,7 +48,6 @@ public class Main {
     public void checkSignInAlertTest() {
         header.clickOnSignInButton();
         signIn.clickOnCreateAnAccoundButton();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("alert"))));
         signIn.isCreateAnAccountAlertVisible();
     }
 
@@ -58,9 +55,7 @@ public class Main {
     public void checkContactUsAlertTest() {
 
         header.clickOnContactUsButton();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("submitMessage"))));
         contactUs.clickOnSendButton();
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("alert"))));
         contactUs.isContactUsAlertVisible();
     }
 
